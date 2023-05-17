@@ -36,7 +36,7 @@
       <div class="col-md-6">
         <h2 class="text-body-emphasis">Form Input Data</h2>
         <p>Masukan data yang akan di proses</p>
-        <form method="post" action="site_url">
+        <form method="post" action="{{ site_url('welcome/tampil') }}">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Nama (text only)</label>
                 <input type="text" pattern="[a-zA-Z]*" class="form-control" id="nama" name="nama" aria-describedby="nama" required>

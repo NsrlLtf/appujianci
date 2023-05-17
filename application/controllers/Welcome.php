@@ -23,37 +23,37 @@ class Welcome extends CI_Controller
      */
     public function index()
     {
-        $this->load->helper('url');
-        if (isset($_POST['nama']) && isset($_POST['nim']) && isset($_POST['umur'])){
-            $_SESSION['nama'] = $_POST['nama'];
-            $_SESSION['nim'] = $_POST['nim'];
-            $_SESSION['umur'] = $_POST['umur'];
-            redirect('Welcome/Tampil');
-        }
         $blade = new Blade(VIEWPATH, APPPATH . 'cache');
         echo $blade->make('form', [])->render();
     }
 
     public function tampil()
     {
-        $nama = $_SESSION['nama'];
-        $nama = $_SESSION['nim'];
-        $nama = $_SESSION['umur'];
+        
+        $nama = $this->input->post('nama');
+        $nim = $this->input->post('nim');
+        $umur = $this->input->post('umur');
+
         $status = '';
 
         if ($umur >= 0 && $umur <= 10){
             $status = 'Anak';
         } elseif ($umur > 10 && $umur <=20){
             $status = 'Remaja';
-        }elseif ($umur > 20 && $umur <=30){
+        } elseif ($umur > 20 && $umur <=30){
             $status = 'Dewasa';
-        }elseif ($umur > 30){
+        } elseif ($umur > 30){
             $status = 'Tua';
         }
 
-        session_unset();
-        session_destroy();
-        $blade = new Blade(VIEWPATH, APPPATH . 'cache');
-        echo $blade->make('tampil', ['nama' => $nama])->render();
+            $blade = new Blade(VIEWPATH, APPPATH . 'cache');
+            $array_data = [
+            'nama' => $nama,
+            'nim' => $nim,
+            'umur' => $umur,
+            'status' => $status,
+        ];
+
+        echo $blade->make('tampil', $array_data)->render();
     }
 }
